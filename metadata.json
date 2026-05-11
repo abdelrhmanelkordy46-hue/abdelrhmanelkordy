@@ -1,0 +1,14 @@
+{
+  "name": "AutoPro SaaS - المبدع لإدارة تأجير السيارات",
+  "description": "نظام احترافي متكامل لإدارة شركات تأجير السيارات يضم ذكاءً اصطناعيًا، تتبعاً حياً، محاسبة متقدمة، ونظام عقود ذكي.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "AI Analytics",
+    "Real-time Tracking",
+    "Financial Management",
+    "Smart Contracts"
+  ]
+}

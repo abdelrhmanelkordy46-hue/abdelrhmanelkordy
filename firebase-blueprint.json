@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "Company": {
+      "title": "Company",
+      "description": "Root entity for multi-tenancy (SaaS)",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "subscriptionTier": { "type": "string", "enum": ["basic", "premium", "pro"] },
+        "settings": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name"]
+    },
+    "Car": {
+      "title": "Car",
+      "description": "Vehicle in the fleet",
+      "type": "object",
+      "properties": {
+        "plateNumber": { "type": "string" },
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "year": { "type": "integer" },
+        "type": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "rented", "maintenance", "accident"] },
+        "dailyPrice": { "type": "number" },
+        "fuelLevel": { "type": "number" },
+        "mileage": { "type": "number" },
+        "branchId": { "type": "string" },
+        "lastLocation": { "type": "object" }
+      },
+      "required": ["plateNumber", "brand", "model", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Rental transaction",
+      "type": "object",
+      "properties": {
+        "carId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "active", "completed", "cancelled"] },
+        "contractUrl": { "type": "string" }
+      },
+      "required": ["carId", "customerId", "startDate", "status"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Client profile",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "idNumber": { "type": "string" },
+        "loyaltyPoints": { "type": "number" },
+        "blacklisted": { "type": "boolean" }
+      },
+      "required": ["name", "phone"]
+    },
+    "Transaction": {
+      "title": "Financial Transaction",
+      "description": "Accounting entry",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "bookingId": { "type": "string" },
+        "branchId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/companies": {
+      "schema": "Company",
+      "description": "List of companies in the SaaS"
+    },
+    "/companies/{companyId}/branches": {
+      "schema": "object",
+      "description": "Branches for a company"
+    },
+    "/companies/{companyId}/cars": {
+      "schema": "Car",
+      "description": "Fleet of a company"
+    },
+    "/companies/{companyId}/bookings": {
+      "schema": "Booking",
+      "description": "Bookings for a company"
+    },
+    "/companies/{companyId}/customers": {
+      "schema": "Customer",
+      "description": "Customers for a company"
+    },
+    "/companies/{companyId}/transactions": {
+      "schema": "Transaction",
+      "description": "Financial ledger"
+    }
+  }
+}
